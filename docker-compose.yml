@@ -1,0 +1,26 @@
+﻿version: '3.8'
+
+services:
+  api:
+    container_name: TodoApi_Api
+    build:
+      context: .
+      dockerfile: src/Api/Dockerfile
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+  db:
+    container_name: TodoApi_db
+    build:
+      context: .
+    image:  "mcr.microsoft.com/mssql/server"
+    hostname: sql-server
+    ports:
+      - "1433:1433"
+    env_file: db.env
+    volumes:
+      - mssql_db:/var/opt/mssql
+
+volumes:
+  mssql_db: {}
