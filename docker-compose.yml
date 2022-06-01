@@ -20,7 +20,7 @@ services:
       - "1433:1433"
     env_file: db.env
     volumes:
-      - mssql_db:/var/opt/mssql
+      - todo_data:/var/opt/mssql
 
 volumes:
-  mssql_db: {}
+  todo_data: {}
