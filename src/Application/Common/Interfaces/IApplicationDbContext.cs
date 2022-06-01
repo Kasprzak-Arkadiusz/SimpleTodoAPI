@@ -5,6 +5,6 @@ namespace Application.Common.Interfaces;
 
 public interface IApplicationDbContext
 {
-    public DbSet<TodoItem> TodoItems { get; set; }
+    public DbSet<TodoItem> TodoItems { get; }
     Task<int> SaveChangesAsync();
 }

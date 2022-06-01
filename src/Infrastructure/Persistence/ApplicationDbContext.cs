@@ -7,7 +7,7 @@ namespace Infrastructure.Persistence;
 
 public class ApplicationDbContext : DbContext, IApplicationDbContext
 {
-    public DbSet<TodoItem> TodoItems { get; set; }
+    public DbSet<TodoItem> TodoItems => Set<TodoItem>();
 
     public ApplicationDbContext() { }
 

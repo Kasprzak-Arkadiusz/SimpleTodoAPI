@@ -1,4 +1,4 @@
-namespace SimpleTodoAPI;
+namespace Api;
 
 public class WeatherForecast
 {
