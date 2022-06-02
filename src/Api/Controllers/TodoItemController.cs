@@ -1,4 +1,6 @@
-﻿using Application.Todo.Queries;
+﻿using Api.Dtos.Todo;
+using Application.Todo.Commands;
+using Application.Todo.Queries;
 using Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -33,10 +35,26 @@ public class TodoItemController : BaseController
     /// <response code="404">TodoItem not found </response>
     [HttpGet("{id:int}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<TodoItem>> GetTodoItemById(int id)
     {
         var todoItem = await Mediator.Send(new GetTodoItemByIdQuery(id));
         return Ok(todoItem);
+    }
+    
+    /// <summary>
+    /// Create todoItem 
+    /// </summary>
+    /// <returns>Created todoItem</returns>
+    /// <response code="201">Successfully created todoItem</response>
+    /// <response code="400">Validation or logic error</response>
+    [HttpPost]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<TodoItem>> CreateTodoItem([FromBody] CreateTodoItemDto dto)
+    {
+        var todoItem = await Mediator.Send(new CreateTodoItemCommand(dto.Title, dto.Description, dto.Deadline));
+        return CreatedAtRoute(null, todoItem);
     }
     
 }

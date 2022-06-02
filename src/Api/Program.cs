@@ -1,6 +1,9 @@
+using System.Reflection;
 using Api.Extensions;
 using Api.Middlewares;
 using Application;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Infrastructure;
 using Infrastructure.Persistence;
 using Infrastructure.Persistence.Utils;
@@ -16,12 +19,13 @@ builder.Services.AddInfrastructure(infrastructureSettings);
 
 builder.Services.AddApplication();
 
+builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
 
 builder.Services.AddSwaggerDocumentation();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddFluentValidation();;
 
 var app = builder.Build();
 
