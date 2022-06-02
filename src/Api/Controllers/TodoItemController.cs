@@ -2,8 +2,10 @@
 using Application.Common.Models;
 using Application.Todo.Commands;
 using Application.Todo.Queries;
+using Application.Todo.ViewModels;
 using Domain.Entities;
 using MediatR;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -89,17 +91,18 @@ public class TodoItemController : BaseController
     /// <summary>
     /// Update todoItem 
     /// </summary>
+    /// <param name="id">TodoItem id</param> 
     /// <returns>Updated todoItem</returns>
     /// <response code="200">Successfully updated todoItem</response>
     /// <response code="400">Validation or logic error</response>
     /// <response code="404">TodoItem not found </response>
-    [HttpPatch]
+    [HttpPatch("{id:int}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<TodoItem>> UpdateTodoItem([FromBody] UpdateTodoItemDto dto)
+    public async Task<ActionResult<TodoItem>> UpdateTodoItem( int id, [FromBody] JsonPatchDocument<PatchTodoItemViewModel> jsonPatch)
     {
-        var todoItem = await Mediator.Send(new UpdateTodoItemCommand(dto.Id, dto.Title, dto.Description, dto.Deadline));
+        var todoItem = await Mediator.Send(new PatchTodoItemCommand(id, jsonPatch));
         return Ok(todoItem);
     }
 

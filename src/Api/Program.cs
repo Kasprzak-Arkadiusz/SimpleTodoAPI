@@ -1,4 +1,5 @@
 using System.Reflection;
+using System.Text.Json.Serialization;
 using Api.Extensions;
 using Api.Middlewares;
 using Application;
@@ -19,13 +20,17 @@ builder.Services.AddInfrastructure(infrastructureSettings);
 
 builder.Services.AddApplication();
 
-builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly()).AddFluentValidation();
+;
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
 
 builder.Services.AddSwaggerDocumentation();
 
-builder.Services.AddControllers().AddFluentValidation();
+builder.Services.AddControllers()
+    .AddNewtonsoftJson()
+    .AddJsonOptions(x => { x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()); });
+
 
 var app = builder.Build();
 
@@ -33,15 +38,11 @@ app.UseSwagger();
 app.UseSwaggerUI();
 app.UseMiddleware<ErrorHandlingMiddleware>();
 
-// app.UseHttpsRedirection();
 app.UseRouting();
 
 app.UseAuthorization();
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers();
-});
+app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 
 if (infrastructureSettings.SeedWithCustomData)
 {

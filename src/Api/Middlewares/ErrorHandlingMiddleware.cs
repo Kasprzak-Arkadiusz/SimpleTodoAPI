@@ -1,4 +1,5 @@
 ﻿using Application.Common.Exceptions;
+using Microsoft.AspNetCore.JsonPatch.Exceptions;
 
 namespace Api.Middlewares;
 
@@ -22,6 +23,8 @@ public class ErrorHandlingMiddleware : IMiddleware
         exception switch
         {
             NotFoundException => StatusCodes.Status404NotFound,
+            BadRequestException => StatusCodes.Status400BadRequest,
+            UnprocessableRequestException => StatusCodes.Status422UnprocessableEntity,
             _ => StatusCodes.Status500InternalServerError
         };
 }

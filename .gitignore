@@ -6,3 +6,4 @@ riderModule.iml
 /.idea/
 /src/Api/appsettings.Development.json
 /db.env
+/SimpleTodoAPI.sln.DotSettings.user
