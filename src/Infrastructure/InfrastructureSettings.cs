@@ -4,19 +4,7 @@ namespace Infrastructure;
 
 public class InfrastructureSettings
 {
-    private string? _dbConnectionString;
+    public string DbConnectionString { get; set; }
 
-    public string DbConnectionString
-    {
-        get
-        {
-            if (string.IsNullOrEmpty(_dbConnectionString))
-            {
-                throw new MissingSettingException(nameof(DbConnectionString));
-            }
-
-            return _dbConnectionString;
-        }
-        set => _dbConnectionString = value;
-    }
+    public bool SeedWithCustomData { get; set; }
 }

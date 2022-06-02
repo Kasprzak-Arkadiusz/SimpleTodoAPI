@@ -8,16 +8,20 @@ services:
       dockerfile: Dockerfile
     ports:
       - "5000:5000"
+    expose:
+      - "5000"
+    env_file:
+      - api.env
     depends_on:
       - db
   db:
     container_name: TodoApi_db
-    build:
-      context: .
     image:  "mcr.microsoft.com/mssql/server"
     hostname: sql-server
     ports:
       - "1433:1433"
+    expose:
+      - "1433"
     env_file: db.env
     volumes:
       - todo_data:/var/opt/mssql
