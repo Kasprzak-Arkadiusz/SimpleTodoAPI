@@ -35,7 +35,7 @@ public class TodoItemController : BaseController
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<TodoItem>> GetTodoItemById(int id)
     {
-        var todoItem = await Mediator.Send(new GetTodoByIdQuery(id));
+        var todoItem = await Mediator.Send(new GetTodoItemByIdQuery(id));
         return Ok(todoItem);
     }
     
