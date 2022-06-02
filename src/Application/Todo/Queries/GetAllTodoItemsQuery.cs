@@ -16,7 +16,7 @@ public class GetAllTodoItemsQueryHandler : IRequestHandler<GetAllTodoItemsQuery,
         _context = context;
     }
 
-    public async Task<IEnumerable<TodoItem>> Handle(GetAllTodoItemsQuery request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<TodoItem>> Handle(GetAllTodoItemsQuery query, CancellationToken cancellationToken)
     {
         var todoItems = await _context.TodoItems.ToListAsync(cancellationToken);
 
