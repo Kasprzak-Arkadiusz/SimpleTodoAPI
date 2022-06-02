@@ -25,7 +25,7 @@ builder.Services.AddScoped<ErrorHandlingMiddleware>();
 
 builder.Services.AddSwaggerDocumentation();
 
-builder.Services.AddControllers().AddFluentValidation();;
+builder.Services.AddControllers().AddFluentValidation();
 
 var app = builder.Build();
 

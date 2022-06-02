@@ -27,8 +27,16 @@ public class TodoItem : IEntity
 
     public void Update(string title, string description, DateTime? deadline = null)
     {
-        Title = title;
-        Description = description;
+        if (!string.IsNullOrEmpty(title))
+        {
+            Title = title;
+        }
+
+        if (!string.IsNullOrEmpty(description))
+        {
+            Description = description;
+        }
+
         Deadline = deadline;
     }
 }

@@ -13,7 +13,7 @@ namespace Api.Controllers;
 public class TodoItemController : BaseController
 {
     public TodoItemController(IMediator mediator) : base(mediator) { }
-    
+
     /// <summary>
     /// Get all todoItems 
     /// </summary>
@@ -26,6 +26,7 @@ public class TodoItemController : BaseController
         var todoItems = await Mediator.Send(new GetAllTodoItemsQuery());
         return Ok(todoItems);
     }
+
     /// <summary>
     /// Get todoItem 
     /// </summary>
@@ -41,7 +42,7 @@ public class TodoItemController : BaseController
         var todoItem = await Mediator.Send(new GetTodoItemByIdQuery(id));
         return Ok(todoItem);
     }
-    
+
     /// <summary>
     /// Create todoItem 
     /// </summary>
@@ -56,5 +57,21 @@ public class TodoItemController : BaseController
         var todoItem = await Mediator.Send(new CreateTodoItemCommand(dto.Title, dto.Description, dto.Deadline));
         return CreatedAtRoute(null, todoItem);
     }
-    
+
+    /// <summary>
+    /// Update todoItem 
+    /// </summary>
+    /// <returns>Updated todoItem</returns>
+    /// <response code="200">Successfully updated todoItem</response>
+    /// <response code="400">Validation or logic error</response>
+    /// <response code="404">TodoItem not found </response>
+    [HttpPatch]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<TodoItem>> UpdateTodoItem([FromBody] UpdateTodoItemDto dto)
+    {
+        var todoItem = await Mediator.Send(new UpdateTodoItemCommand(dto.Id, dto.Title, dto.Description, dto.Deadline));
+        return Ok(todoItem);
+    }
 }
