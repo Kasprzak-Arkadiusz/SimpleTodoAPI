@@ -66,12 +66,26 @@ public class TodoItemController : BaseController
     /// <response code="400">Validation or logic error</response>
     /// <response code="404">TodoItem not found </response>
     [HttpPatch]
-    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<TodoItem>> UpdateTodoItem([FromBody] UpdateTodoItemDto dto)
     {
         var todoItem = await Mediator.Send(new UpdateTodoItemCommand(dto.Id, dto.Title, dto.Description, dto.Deadline));
         return Ok(todoItem);
+    }
+    
+    /// <summary>
+    /// Delete todoItem 
+    /// </summary>
+    /// <response code="200">Successfully deleted todoItem</response>
+    /// <response code="404">TodoItem not found </response>
+    [HttpDelete("{id:int}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult> DeleteTodoItem(int id)
+    {
+        await Mediator.Send(new DeleteTodoItemCommand(id));
+        return Ok();
     }
 }
