@@ -1,4 +1,5 @@
 ﻿using Api.Dtos.Todo;
+using Application.Common.Models;
 using Application.Todo.Commands;
 using Application.Todo.Queries;
 using Domain.Entities;
@@ -8,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Api.Controllers;
 
 /// <summary>
-/// Controller for todos management
+/// API Controller responsible for todoItems management
 /// </summary>
 public class TodoItemController : BaseController
 {
@@ -25,6 +26,33 @@ public class TodoItemController : BaseController
     {
         var todoItems = await Mediator.Send(new GetAllTodoItemsQuery());
         return Ok(todoItems);
+    }
+
+    /// <summary>
+    /// Get todoItems as paginated list 
+    /// </summary>
+    /// <param name="pageNumber">Page number</param>
+    /// <param name="pageSize">Number of todoItems on a page</param>
+    /// <returns>TodoItems in the form of a paged list</returns>
+    /// <response code="200">Successfully returned todoItems</response>
+    /// <response code="400">Bad query parameters</response>
+    [HttpGet("paged")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<PaginatedList<TodoItem>>> GetTodoItemsAsPaginatedList(int pageNumber, int pageSize)
+    {
+        if (pageNumber < 1)
+        {
+            return BadRequest("PageNumber must be a positive number");
+        }
+
+        if (pageSize < 1)
+        {
+            return BadRequest("PageSize must be a positive number");
+        }
+
+        var paginatedResult = await Mediator.Send(new GetTodoItemsAsPaginatedListQuery(pageNumber, pageSize));
+        return Ok(paginatedResult);
     }
 
     /// <summary>
@@ -74,7 +102,7 @@ public class TodoItemController : BaseController
         var todoItem = await Mediator.Send(new UpdateTodoItemCommand(dto.Id, dto.Title, dto.Description, dto.Deadline));
         return Ok(todoItem);
     }
-    
+
     /// <summary>
     /// Delete todoItem 
     /// </summary>
