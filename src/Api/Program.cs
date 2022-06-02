@@ -1,4 +1,5 @@
 using Api.Extensions;
+using Api.Middlewares;
 using Application;
 using Infrastructure;
 using Infrastructure.Persistence;
@@ -16,6 +17,7 @@ builder.Services.AddInfrastructure(infrastructureSettings);
 builder.Services.AddApplication();
 
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
+builder.Services.AddScoped<ErrorHandlingMiddleware>();
 
 builder.Services.AddSwaggerDocumentation();
 
@@ -25,6 +27,7 @@ var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
+app.UseMiddleware<ErrorHandlingMiddleware>();
 
 // app.UseHttpsRedirection();
 app.UseRouting();
