@@ -10,7 +10,6 @@ namespace Api.Controllers;
 /// </summary>
 public class TodoItemController : BaseController
 {
-    /// <inheritdoc />
     public TodoItemController(IMediator mediator) : base(mediator) { }
     
     /// <summary>

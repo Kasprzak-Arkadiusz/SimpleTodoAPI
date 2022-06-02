@@ -1,6 +1,4 @@
-﻿using Infrastructure.Persistence.Utils;
-
-namespace Infrastructure;
+﻿namespace Infrastructure;
 
 public class InfrastructureSettings
 {

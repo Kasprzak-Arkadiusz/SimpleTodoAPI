@@ -1,6 +1,9 @@
 using Api.Extensions;
 using Application;
 using Infrastructure;
+using Infrastructure.Persistence;
+using Infrastructure.Persistence.Utils;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,5 +35,18 @@ app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
 });
+
+if (infrastructureSettings.SeedWithCustomData)
+{
+    using var scope = app.Services.CreateScope();
+    var dataContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    await DatabaseSeeder.SeedAsync(dataContext);
+}
+
+using (var scope = app.Services.CreateScope())
+{
+    var dataContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    dataContext.Database.Migrate();
+}
 
 app.Run();

@@ -13,7 +13,14 @@ public static class DependencyInjection
         services.AddSingleton(settings);
 
         services.AddDbContext<IApplicationDbContext, ApplicationDbContext>(options =>
-            options.UseSqlServer(settings.DbConnectionString)
+            options.UseSqlServer(settings.DbConnectionString,
+                sqlOptions =>
+                {
+                    sqlOptions.EnableRetryOnFailure(
+                        maxRetryCount: 5,
+                        maxRetryDelay: TimeSpan.FromSeconds(20),
+                        errorNumbersToAdd: null);
+                })
         );
     }
 }
