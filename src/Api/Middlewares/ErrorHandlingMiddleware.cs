@@ -1,5 +1,4 @@
 ﻿using Application.Common.Exceptions;
-using Microsoft.AspNetCore.JsonPatch.Exceptions;
 
 namespace Api.Middlewares;
 

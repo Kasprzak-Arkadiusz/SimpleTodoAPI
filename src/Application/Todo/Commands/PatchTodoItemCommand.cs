@@ -52,7 +52,7 @@ public class PatchTodoItemCommandHandler : IRequestHandler<PatchTodoItemCommand,
         ValidateEntityState(todoItem);
 
         _context.TodoItems.Update(todoItem);
-        await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync(cancellationToken);
 
         return todoItem;
     }

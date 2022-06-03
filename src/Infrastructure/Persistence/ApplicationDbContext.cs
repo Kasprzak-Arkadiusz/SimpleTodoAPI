@@ -19,9 +19,9 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         base.OnModelCreating(modelBuilder);
     }
-    
-    public async Task<int> SaveChangesAsync()
+
+    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())
     {
-        return await base.SaveChangesAsync();
+        return await base.SaveChangesAsync(cancellationToken);
     }
 }

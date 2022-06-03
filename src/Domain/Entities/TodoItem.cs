@@ -13,30 +13,11 @@ public class TodoItem : IEntity
     {
         Title = title;
         Description = description;
-
-        if (deadline.HasValue)
-        {
-            Deadline = deadline;
-        }
+        Deadline = deadline;
     }
 
     public static TodoItem Create(string title, string description, DateTime? deadline = null)
     {
         return new TodoItem(title, description, deadline);
-    }
-
-    public void Update(string title, string description, DateTime? deadline = null)
-    {
-        if (!string.IsNullOrEmpty(title))
-        {
-            Title = title;
-        }
-
-        if (!string.IsNullOrEmpty(description))
-        {
-            Description = description;
-        }
-
-        Deadline = deadline;
     }
 }

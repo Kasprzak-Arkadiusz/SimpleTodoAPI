@@ -6,5 +6,5 @@ namespace Application.Common.Interfaces;
 public interface IApplicationDbContext
 {
     public DbSet<TodoItem> TodoItems { get; }
-    Task<int> SaveChangesAsync();
+    Task<int> SaveChangesAsync(CancellationToken cancellationToken = new());
 }

@@ -21,7 +21,7 @@ builder.Services.AddInfrastructure(infrastructureSettings);
 builder.Services.AddApplication();
 
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly()).AddFluentValidation();
-;
+
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
 
