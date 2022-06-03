@@ -17,13 +17,13 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Serialization;
 using NUnit.Framework;
 
-namespace ApplicationTests.Commands;
+namespace ApplicationTests.Todo.Commands;
 
 public class PatchTodoItemCommandHandlerTests
 {
     private readonly DbContextOptions<ApplicationDbContext> _dbContextOptions =
         new DbContextOptionsBuilder<ApplicationDbContext>()
-            .UseInMemoryDatabase(databaseName: "PrimeDb")
+            .UseInMemoryDatabase(databaseName: "PatchTestDb")
             .Options;
 
     private PatchTodoItemCommandHandler _commandHandler;

@@ -9,13 +9,13 @@ using Infrastructure.Persistence.Utils;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 
-namespace ApplicationTests.Commands;
+namespace ApplicationTests.Todo.Commands;
 
 public class CreateTodoItemCommandHandlerTests
 {
     private readonly DbContextOptions<ApplicationDbContext> _dbContextOptions =
         new DbContextOptionsBuilder<ApplicationDbContext>()
-            .UseInMemoryDatabase(databaseName: "PrimeDb")
+            .UseInMemoryDatabase(databaseName: "CreateTestDb")
             .Options;
 
     private CreateTodoItemCommandHandler _commandHandler;
