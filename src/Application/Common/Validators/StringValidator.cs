@@ -4,8 +4,8 @@ namespace Application.Common.Validators;
 
 public class StringValidator
 {
-    public string Property { get; }
-    public string PropertyName { get; }
+    private string Property { get; }
+    private string PropertyName { get; }
     
     public StringValidator(string property, string propertyName)
     {

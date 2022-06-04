@@ -96,10 +96,12 @@ public class TodoItemController : BaseController
     /// <response code="200">Successfully updated todoItem</response>
     /// <response code="400">Validation or logic error</response>
     /// <response code="404">TodoItem not found </response>
+    /// <response code="422">Provided operation cannot be performed on this entity </response>
     [HttpPatch("{id:int}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
     public async Task<ActionResult<TodoItem>> UpdateTodoItem( int id, [FromBody] JsonPatchDocument<PatchTodoItemViewModel> jsonPatch)
     {
         var todoItem = await Mediator.Send(new PatchTodoItemCommand(id, jsonPatch));
