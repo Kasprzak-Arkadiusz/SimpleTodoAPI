@@ -7,7 +7,7 @@ Simple Todo API - a task for recrutation
 
 ## Requirements
 
-To run the Api locally you need:
+To run the Api you need:
 
 * `.NET 6`
 
@@ -20,7 +20,7 @@ To setup a project follow these steps:
 
     Now you have two options:  
 
-    a) Run database locally
+    a) Run locally
     
     - Change your directory to SimpleTodoAPI/src/Api/ 
     
@@ -44,8 +44,8 @@ To setup a project follow these steps:
       localhost:7146/swagger/index.html
       ```
 
-    b) Run database in Docker  
-    
+    b) Run in Docker 
+
     - Enter into SimpleTodoAPI/ folder and run in terminal:  
     
       ```sh
