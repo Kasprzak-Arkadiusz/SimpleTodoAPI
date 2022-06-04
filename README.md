@@ -2,7 +2,7 @@
 Simple Todo API - a task for recrutation
 
 ## Table of contents
-* [Requirements](#setup)
+* [Requirements](#requirements)
 * [Setup](#setup)
 
 ## Requirements
